@@ -28,7 +28,7 @@ Now these commands only build CLY and generate a `cly` executable and a `tasks.t
 
 There are only _four_ simple commands CLY supports: 
 
-```bash
+```
 cly add <task>          = Add a new task to the list
 cly remove <task_index> = Remove a specific task from the list
 cly show                = Show all of the current tasks in the list
@@ -37,21 +37,21 @@ cly help                = Show this help screen
 
 And, as you can see, they are pretty self-explanatory. Here's a simple example of adding a "Finish major big project" task to the list: 
 
-```bash
+```
 cly add "Finish major big project"
 ```
 
 You can also string together multiple tasks to add them all at once: 
 
 
-```bash
+```
 cly add "Finish major big project" "Contemplate life" "Listen to The Beatles" "Look at a cat for 2 hours"
 ```
 
 If you use the `show` command, you will get the following result: 
 
 
-```bash
+```
 +++++ TODO ++++++
 
 1. Finish major big project
@@ -64,14 +64,14 @@ If you use the `show` command, you will get the following result:
 
 You can also see that the tasks are numbered. This makes it easier to remove task from the list. 
 
-```bash
+```
 cly remove 1
 ```
 
 And the result:
 
 
-```bash
+```
 +++++ TODO ++++++
 
 1. Contemplate life
@@ -84,14 +84,14 @@ And the result:
 The numbers shift around and the task is now removed. And, like adding tasks, you can also remove multiple tasks at once.
 
 
-```bash
+```
 cly remove 2 3
 ```
 
 Which should end up with something like this:
 
 
-```bash
+```
 +++++ TODO ++++++
 
 1. Contemplate life

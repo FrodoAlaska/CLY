@@ -17,8 +17,6 @@
 /// CLYState
 struct CLYState {
   std::filesystem::path working_dir;
-  std::fstream file;
-
   std::vector<std::string> tasks;
 };
 /// CLYState
@@ -30,21 +28,31 @@ struct CLYState {
 bool cly_state_init(CLYState* state) {
   // Getting the working directory
   state->working_dir = (std::filesystem::current_path() / std::string("tasks.txt"));
+  
+  std::fstream file;
+
+  // First check if the file exists or not and create it if it doesn't
+  if(!std::filesystem::exists(state->working_dir)) {
+    file.open(state->working_dir, std::ios::in | std::ios::out | std::ios::trunc);
+    file.close();
+    
+    return true;
+  }
 
   // Loading the tasks file
-  state->file.open(state->working_dir, std::ios::in);
-  if(!state->file.is_open()) {
+  file.open(state->working_dir, std::ios::in | std::ios::out);
+  if(!file.is_open()) {
     printf("[CLY-ERROR]: Failed to open TASKS file at \'%s\'\n", state->working_dir.c_str());
     return false;
   }
 
   // Add all of the tasks from the file
   std::string line; 
-  while(std::getline(state->file, line)) {
+  while(std::getline(file, line)) {
     state->tasks.push_back(line);
   }
   
-  state->file.close();
+  file.close();
   return true;
 }
 
@@ -117,6 +125,7 @@ void args_show_help() {
   printf("\tcly add <task>          = Add a new task to the list\n");
   printf("\tcly remove <task_index> = Remove a specific task from the list\n");
   printf("\tcly show                = Show all of the current tasks in the list\n");
+  printf("\tcly help                = Show this help screen\n");
   printf("\n\n----- CLY: A TODO command line application -----\n\n"); 
 }
 
